@@ -1,3 +1,5 @@
+- Las configuraciones del proyecto deben corresponderse con Java 17
+
 - Setear desde IDE el puerto 8080 (en caso de que no se setee por defecto):
   * Ingresar a src > main > resources > application.properties
   * Agregar al archivo el campo: server.port=8080
