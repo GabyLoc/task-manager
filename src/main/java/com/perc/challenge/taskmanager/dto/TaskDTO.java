@@ -7,7 +7,7 @@ public class TaskDTO {
 
     private String name;
     private String description;
-    private boolean completed;
+    private Boolean completed;
     private String dueDate;
 
 }

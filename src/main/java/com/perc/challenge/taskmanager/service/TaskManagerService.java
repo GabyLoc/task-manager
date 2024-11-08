@@ -30,6 +30,9 @@ public class TaskManagerService {
 
     public Task save(Task task) {
 
+        if(task.getCompleted() == null) {
+            task.setCompleted(false);
+        }
         return repository.save(task);
     }
 
@@ -41,14 +44,14 @@ public class TaskManagerService {
 
         Pageable pageable = PageRequest.of(page, size);
 
-        if (dateAsString != null) {
-            LocalDate dueDate = CommonUtils.dateFormatter(dateAsString);
-            return repository.findByDueDate(dueDate, pageable);
-        } else if (completed != null) {
-            return repository.findByCompleted(completed, pageable);
-        } else if(completed != null && dateAsString != null) {
+        if(completed != null && dateAsString != null) {
             LocalDate dueDate = CommonUtils.dateFormatter(dateAsString);
             return repository.findByCompletedAndDueDate(completed, dueDate, pageable);
+        } else if (dateAsString != null) {
+            LocalDate dueDate = CommonUtils.dateFormatter(dateAsString);
+            return repository.findByDueDate(dueDate, pageable);
+        }  else if (completed != null) {
+            return repository.findByCompleted(completed, pageable);
         } else {
             return repository.findAll(pageable);
         }

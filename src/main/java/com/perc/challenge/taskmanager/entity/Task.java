@@ -27,13 +27,10 @@ public class Task {
     private String description;
 
     @Column
-    private boolean completed;
+    private Boolean completed = false;
 
     @Column
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) // Acepta el formato yyyy-MM-dd?
     private LocalDate dueDate;
 
-    public Task() {
-        this.completed = false;
-    }
 }
