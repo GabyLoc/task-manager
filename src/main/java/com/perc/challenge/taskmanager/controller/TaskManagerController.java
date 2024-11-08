@@ -92,7 +92,9 @@ public class TaskManagerController {
 
         TaskResponse response = new TaskResponse();
         Task task = mapper.map(taskDTO, Task.class);
-        task.setDueDate(CommonUtils.dateFormatter(taskDTO.getDueDate()));
+        if(taskDTO.getDueDate() != null && !taskDTO.getDueDate().isBlank()) {
+            task.setDueDate(CommonUtils.dateFormatter(taskDTO.getDueDate()));
+        }
         service.save(task);
         response.setSummary(new Summary(HttpStatus.OK.value(), ConstantValues.Message.TASK_CREATED_SUCCESFULLY, ConstantValues.Message.WITHOUT_ERRORS_RESPONSE));
         response.setTask(task);
