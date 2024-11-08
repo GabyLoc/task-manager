@@ -18,6 +18,7 @@ public class ConstantValues {
         public static final String TASK_CREATED_SUCCESFULLY = "Task was created succesfully!";
         public static final String TASK_UPDATED_SUCCESFULLY = "Task was updated succesfully!";
         public static final String TASK_DELETED_SUCCESFULLY = "Task was deleted succesfully!";
+        public static final String TASK_MARKED_COMPLETED = "Task is now marked as completed.";
 
     }
 

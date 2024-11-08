@@ -120,6 +120,22 @@ public class TaskManagerController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @Operation(description = "Mark task as completed")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "404", description = "Not found"),
+            @ApiResponse(responseCode = "400", description = "Bad Request"),
+            @ApiResponse(responseCode = "403", description = "Unauthorized"),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error")
+    })
+    @PatchMapping(value = ConstantValues.ServiceUrl.ID_PARAM + "/complete")
+    public ResponseEntity<Summary> markTaskAsCompleted(@PathVariable Integer id) {
+
+        service.markAsCompleted(id);
+        Summary response = new Summary(HttpStatus.OK.value(), ConstantValues.Message.TASK_MARKED_COMPLETED, ConstantValues.Message.WITHOUT_ERRORS_RESPONSE);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
     @DeleteMapping(ConstantValues.ServiceUrl.ID_PARAM)
     @Operation(description = "Delete task")
     @ApiResponses(value = {

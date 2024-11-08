@@ -5,6 +5,7 @@ import com.perc.challenge.taskmanager.entity.Task;
 import com.perc.challenge.taskmanager.exception.NotFoundException;
 import com.perc.challenge.taskmanager.repository.TaskManagerRepository;
 import com.perc.challenge.taskmanager.util.CommonUtils;
+import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -51,6 +52,14 @@ public class TaskManagerService {
         } else {
             return repository.findAll(pageable);
         }
+    }
+
+    @Transactional
+    public void markAsCompleted(Integer id) {
+
+        Task task = repository.findById(id).orElseThrow(() -> new NotFoundException(HttpStatus.NOT_FOUND.value(), ConstantValues.Message.ERROR_TASK_NOT_FOUND));
+        task.setCompleted(true);
+        repository.save(task);
     }
 
 }
