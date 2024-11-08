@@ -40,15 +40,15 @@ public class TaskManagerService {
 
         Pageable pageable = PageRequest.of(page, size);
 
-        if (completed != null && dateAsString != null) {
-            // Filtrar por completado y fecha de vencimiento
+        if (dateAsString != null) {
+            LocalDate dueDate = CommonUtils.dateFormatter(dateAsString);
+            return repository.findByDueDate(dueDate, pageable);
+        } else if (completed != null) {
+            return repository.findByCompleted(completed, pageable);
+        } else if(completed != null && dateAsString != null) {
             LocalDate dueDate = CommonUtils.dateFormatter(dateAsString);
             return repository.findByCompletedAndDueDate(completed, dueDate, pageable);
-        } else if (completed != null) {
-            // Filtrar solo por estado completado
-            return repository.findByCompleted(completed, pageable);
         } else {
-            // Sin filtros, devolver todas las tareas
             return repository.findAll(pageable);
         }
     }

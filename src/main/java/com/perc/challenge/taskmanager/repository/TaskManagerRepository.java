@@ -12,5 +12,6 @@ public interface TaskManagerRepository extends JpaRepository<Task, Integer> {
     Page<Task> findByCompleted(boolean completed, Pageable pageable);
 
     Page<Task> findByCompletedAndDueDate(boolean completed, LocalDate dueDate, Pageable pageable);
+    Page<Task> findByDueDate(LocalDate dueDate, Pageable pageable);
 
 }

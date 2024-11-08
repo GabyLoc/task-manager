@@ -110,14 +110,13 @@ public class TaskManagerController {
     })
     public ResponseEntity<Summary> updateTask(@PathVariable Integer id, @RequestBody TaskDTO taskDTO) throws TaskManagerException {
 
-        Summary response = new Summary();
-
         service.findById(id);
         Task task = this.mapper.map(taskDTO, Task.class);
+        task.setDueDate(CommonUtils.dateFormatter(taskDTO.getDueDate()));
         task.setId(id);
         service.save(task);
 
-        response = new Summary(HttpStatus.OK.value(), ConstantValues.Message.TASK_UPDATED_SUCCESFULLY, ConstantValues.Message.WITHOUT_ERRORS_RESPONSE);
+        Summary response = new Summary(HttpStatus.OK.value(), ConstantValues.Message.TASK_UPDATED_SUCCESFULLY, ConstantValues.Message.WITHOUT_ERRORS_RESPONSE);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
